@@ -27,6 +27,7 @@ function showConcerts(search, filter) {
       }
     }
     else {
+      console.log(search)
       for (var i = data.length - 1; i >= 0; i--) {
         if (data[i].name.includes(search)) {
           newData.push(data[i])
@@ -34,16 +35,18 @@ function showConcerts(search, filter) {
       }
     }
     data = newData
-
   }
 
+  if (data.length!==0)
+  {
     // put all the concerts in data.result into id=concerts
-    console.log(data)
     for (var i = data.length-1; i >= 0; i--) {
-
+      // remove T from date
       var index = 10;
       var date = data[i].dateOfShow
       date = date.substr(0, index) + ' ' + date.substr(index + 1);
+
+      // mycontent template
       var myCont = '<div id="concert">'+
                     '<img src="'+data[i].imageSource+'" alt="Mountain View" id="img">'+
                     '<div id="info">'+
@@ -54,7 +57,6 @@ function showConcerts(search, filter) {
                     '</div>'+
                    '</div>'
        concerts.innerHTML += myCont;
-
     }
 
     // Show info on hover
@@ -66,12 +68,20 @@ function showConcerts(search, filter) {
       function () {
           $(this).find("#info").hide(); 
           $(this).find("#img").css('opacity', '1');
-      }
-    );
-  });
+      }); // end of hover
+  }
+  else{
+    concerts.innerHTML = "There are no concerts matching that filter"
+  }
+});
 }
 
 //showConcerts("Gamla bíó", true)
-showConcerts("a")
+showConcerts()
+
+
+$( "#search" ).on("keyup", function() {
+  showConcerts($(this).val());
+});
 
 });
