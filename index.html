@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<title>Lokaverkefni</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
   <meta charset="utf-8">
   <style>
+    #concerts {
+      margin-top: 40px;
+      width: 90%;
+    }
   	#concert {
-      float: left; 
       position: relative;
       width:304px;
       height:228px;
+      margin: 5px;
     }
     #concert img {
       width: 100%;
@@ -24,21 +35,67 @@
       height: 100%;
       position: absolute;
       text-align:center;
-      z-index: 100;
+      z-index: 1;
       left: 0;
       margin-top: 10px;
       color: black;
       font-weight: bold;
       display: none;
     }
+
+    #filter{
+      z-index: 100;
+      background-color: black;
+    }
+    #datepicker, #datepicker2 {
+      position: absolute;
+      z-index: 100;
+    }
+    #ui-datepicker-div{
+      background-color: white;
+    }
+    .datepicker {
+
+    }
+    .datefrom {
+      float: left;
+      margin: 10px;
+    }
+    .dateto {
+      margin: 10px;
+      margin-left: 200px;
+    }
   </style>
 
 </head>
 <body>
+<br><br>
+<div class="container"> <!-- search-->
+    <div class="row">    
+        <div class="col-xs-8 ">
+          <div class="input-group">
+                <input type="hidden" name="search_param" value="all">         
+                <input type="text" class="form-control" name="x" placeholder="Search term..." id="search">
+          </div>
+          <div style="float: left;"><input type="text" id="datepicker" class="datefrom datepicker" placeholder="datefrom"></div>
+          <div> <input type="text" id="datepicker2" class="dateto datepicker" placeholder="dateto"></div>
+          <div style="margin-left: 400px;margin-top: 10px;">
+            <label class="checkbox-inline"><input type="radio" value="()" name="tags">Höfuðborgarsvæðið</label>
+            <label class="checkbox-inline"><input type="radio" value="(Akureyri)" name="tags">Akureyri</label>
+            <label class="checkbox-inline"><input type="radio" value="(Kópavogi)" name="tags">Kópavogi</label>
+            <label class="checkbox-inline"><input type="radio" value="(Hannesarholt)" name="tags">Hannesarholt</label>
+          </div>
+        </div>
+  </div>
+</div>
 
-<input type="text" name="search" placeholder="search" id="search"><br>
+<br>
 
-<div id="concerts"></div>
+<div class="">
+  <div id="concerts">
+    
+  </div>
+</div>
 
 
 <script src="script.js"></script>

@@ -4,7 +4,13 @@ $(document).ready(function () {
 function showConcerts(search, filter) {
   if (typeof(search)==='undefined') search = "";
   if (typeof(filter)==='undefined') filter = false;
-  // ajax the info into the concerts id
+
+  // get the value from datefrom and date to
+  var datefrom = $('#datepicker').val();
+  var dateto = $('#datepicker2').val();
+  console.log(datefrom)
+
+
 	var concerts = document.getElementById("concerts");
   concerts.innerHTML = ""
 
@@ -20,14 +26,20 @@ function showConcerts(search, filter) {
     var newData = []
     if (filter)
     {
+      // run a filter on the data
       for (var i = data.length - 1; i >= 0; i--) {
-        if (data[i].userGroupName===search) {
+        if (data[i].eventHallName.includes(search)) {
+          newData.push(data[i])
+        }
+        // if there is now designated place in the name
+        else if (search==="()" && !data[i].eventHallName.includes(")"))
+        {
           newData.push(data[i])
         }
       }
     }
     else {
-      console.log(search)
+      // Query the data
       for (var i = data.length - 1; i >= 0; i--) {
         if (data[i].name.includes(search)) {
           newData.push(data[i])
@@ -36,6 +48,30 @@ function showConcerts(search, filter) {
     }
     data = newData
   }
+
+  // filter with datefrom
+  if (datefrom!=='') {
+    var newData = []
+      for (var i = data.length - 1; i >= 0; i--) {
+        if (Date.parse(datefrom) < Date.parse(data[i].dateOfShow)) {
+          newData.push(data[i])
+        }
+      }
+    data = newData
+  }
+
+
+  // filter with dateto
+  if (dateto!=='') {
+    var newData = []
+      for (var i = data.length - 1; i >= 0; i--) {
+        if (Date.parse(dateto) > Date.parse(data[i].dateOfShow)) {
+          newData.push(data[i])
+        }
+      }
+    data = newData
+  }
+
 
   if (data.length!==0)
   {
@@ -47,7 +83,7 @@ function showConcerts(search, filter) {
       date = date.substr(0, index) + ' ' + date.substr(index + 1);
 
       // mycontent template
-      var myCont = '<div id="concert">'+
+      var myCont = '<div id="concert" class="col-sm-4">'+
                     '<img src="'+data[i].imageSource+'" alt="Mountain View" id="img">'+
                     '<div id="info">'+
                       'Nafn: '+data[i].name+'<br>'+
@@ -83,5 +119,24 @@ showConcerts()
 $( "#search" ).on("keyup", function() {
   showConcerts($(this).val());
 });
+
+// make dateto and datefrom an interactive calander
+$( ".dateto" ).datepicker();
+$( ".datefrom" ).datepicker();
+
+// on the change of the calanders call showconcerts
+$( ".datefrom" ).change(function() {
+  showConcerts();
+});
+$( ".dateto" ).change(function() {
+  showConcerts();
+});
+
+
+// when the radiobuttons are changed calll showConcert
+$('input[type=radio][name=tags]').change(function() {
+    showConcerts(this.value, true)
+});
+
 
 });
