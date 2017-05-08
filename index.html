@@ -47,15 +47,15 @@
       z-index: 100;
       background-color: black;
     }
+    #dates {
+      position: relative;
+    }
     #datepicker, #datepicker2 {
       position: absolute;
       z-index: 100;
     }
     #ui-datepicker-div{
       background-color: white;
-    }
-    .datepicker {
-
     }
     .datefrom {
       float: left;
@@ -65,6 +65,23 @@
       margin: 10px;
       margin-left: 200px;
     }
+
+    #search {
+      width: 100%;
+    }
+    #tags {
+      margin-top: 50px;
+    }
+
+     @media screen and (max-width: 700px) {
+      .dateto {
+        margin-top: 50px;
+        margin-left: 10px;
+      }
+      #dates {
+        height: 30px;
+      }
+   }
   </style>
 
 </head>
@@ -72,14 +89,17 @@
 <br><br>
 <div class="container"> <!-- search-->
     <div class="row">    
-        <div class="col-xs-8 ">
-          <div class="input-group">
+        <div class="col-xs-10 ">
+          <div class="">
                 <input type="hidden" name="search_param" value="all">         
                 <input type="text" class="form-control" name="x" placeholder="Search term..." id="search">
           </div>
-          <div style="float: left;"><input type="text" id="datepicker" class="datefrom datepicker" placeholder="datefrom"></div>
+          <div id="dates">
+          <div><input type="text" id="datepicker" class="datefrom datepicker" placeholder="datefrom"></div>
           <div> <input type="text" id="datepicker2" class="dateto datepicker" placeholder="dateto"></div>
-          <div style="margin-left: 400px;margin-top: 10px;">
+            
+          </div>
+          <div id="tags">
             <label class="checkbox-inline"><input type="radio" value="()" name="tags">Höfuðborgarsvæðið</label>
             <label class="checkbox-inline"><input type="radio" value="(Akureyri)" name="tags">Akureyri</label>
             <label class="checkbox-inline"><input type="radio" value="(Kópavogi)" name="tags">Kópavogi</label>

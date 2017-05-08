@@ -5,6 +5,14 @@ function showConcerts(search, filter) {
   if (typeof(search)==='undefined') search = "";
   if (typeof(filter)==='undefined') filter = false;
 
+  if (filter===false)
+  {
+    // Disable tag radiobuttons
+    $('input[name="tags"]:checked').each(function() {
+       this.checked = false;
+    });
+  }
+
   // get the value from datefrom and date to
   var datefrom = $('#datepicker').val();
   var dateto = $('#datepicker2').val();
@@ -19,6 +27,8 @@ function showConcerts(search, filter) {
  $.getJSON("http://apis.is/concerts", function(data) {
   data = data.results
 
+  
+ 
 
   // filter and query results
   if (search!=="")
@@ -39,6 +49,7 @@ function showConcerts(search, filter) {
       }
     }
     else {
+
       // Query the data
       for (var i = data.length - 1; i >= 0; i--) {
         if (data[i].name.includes(search)) {
@@ -99,7 +110,7 @@ function showConcerts(search, filter) {
     $("#concerts *").hover(
       function () {
           $(this).find("#info").show();
-          $(this).find("#img").css('opacity', '0.6');
+          $(this).find("#img").css('opacity', '0.4');
       },
       function () {
           $(this).find("#info").hide(); 
